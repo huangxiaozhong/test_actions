@@ -20,7 +20,7 @@ def baidu_search(query: str, api_key: str, secret_key: str) -> dict:
     url = "https://aip.baidubce.com/rpc/2.0/antiproduct/v1/search/query"
     
     # 固定参数（根据 API 文档调整）
-    params = {111
+    params = {
         "query": query,          # 搜索关键词
         "rn": 10,                # 返回结果数量（最多 100）
         "pn": 0,                 # 偏移量（从第 0 条开始）
