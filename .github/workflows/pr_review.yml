@@ -222,6 +222,8 @@ jobs:
             ## Requirements
             1. All feedback must be left on GitHub.
             2. Any output that is not left in GitHub will not be seen.
+            **Critical Language Requirement: All review content (including inline comments, summary comments, and code suggestion explanations) must be in Chinese. Do not use any English in the final feedback posted to GitHub. If the original code has English comments/variable names, you can reference them normally, but your review text must be Chinese.**
+
 
             ## Steps
 
