@@ -1,0 +1,56 @@
+import mysql.connector
+from mysql.connector import Error
+
+def query_database():
+    connection = None
+    cursor = None
+    try:
+        # 步骤 3：建立数据库连接
+        connection = mysql.connector.connect(
+            host="localhost",      # 数据库地址
+            port=33061,             # 端口
+            user="root",           # 用户名
+            password="your_password",  # 密码（替换为你的密码）
+            database="test_db",    # 数据库名（替换为你的数据库）
+            charset="utf8mb4"      # 字符集
+        )
+
+        if connection.is_connected():
+            print("成功连接到数据库！")
+
+            # 步骤 4：创建游标（支持字典格式返回结果，可选）
+            cursor = connection.cursor(dictionary=True)  # 若不需要字典格式，去掉此参数
+
+            # 步骤 5：定义并执行查询语句（参数化查询示例）
+            sql_query = "SELECT id, name, age FROM users WHERE age > %s;"
+            params = (18,)  # 查询条件：age > 18
+            cursor.execute(sql_query, params)
+
+            # 步骤 6：获取查询结果
+            results = cursor.fetchall()  # 获取所有结果（也可以用 fetchone() 逐行获取）
+
+            # 处理结果（示例：打印每一行）
+            if results:
+                print("
+查询结果：")
+                for row in results:
+                    # 若使用字典游标，通过列名访问（如 row['name']）
+                    # 若未使用字典游标，通过索引访问（如 row[0] 是 id，row[1] 是 name）
+                    print(f"ID: {row['id']}, 姓名: {row['name']}, 年龄: {row['age']}")
+            else:
+                print("未找到符合条件的记录。")
+
+    except Error as e:
+        print(f"数据库连接或查询失败：{e}")
+
+    finally:
+        # 步骤 7：关闭游标和连接（无论是否出错都执行）
+        if cursor:
+            cursor.close()
+        if connection and connection.is_connected():
+            connection.close()
+            print("
+数据库连接已关闭。")
+
+# 执行函数
+query_database()
